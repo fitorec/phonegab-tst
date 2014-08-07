@@ -59,6 +59,13 @@ body {
                                    /* offset horizontal: half of text area width */
 }
 
+@media screen and (orientation: landscape) {
+	body {
+		background-image: none !important;
+		background-color: #FF9200;
+	}
+}
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
