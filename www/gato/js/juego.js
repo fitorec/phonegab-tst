@@ -98,7 +98,7 @@ var gato = {
 		console.log('Número de fichas: ' + gato.fichasActivas);
 	},
 	quienGano: function(){
-	}
+	},
 	fin: function() {
 		var msgGanador = quienGano();
 		$('#gato').append(
