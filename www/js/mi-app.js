@@ -30,7 +30,25 @@ var app = {
     },
     // Al iniciar el juego ocultamos el div de inicio y mostramos el div del tablero
     iniciarJuego: function() {
-        $('#pantalla-inicio').hide();
-        $('#tablero').show();
-    }
+			var nombreJuego = $('#nombre-juego option:selected').val();
+			var objectJuego = null;
+			$('#tablero').empty();
+			if (nombreJuego == "gato") {
+				objectJuego = gato;
+			}else if(nombreJuego == "cuatro-en-raya") {
+				objectJuego = cuatroEnRaya;
+			}else if(nombreJuego == "memorama") {
+				objectJuego = memorama;
+			}
+			$('#tablero').load(
+				'./'+nombreJuego+'/plantilla.html',
+				null,
+				objectJuego.inicio
+			);
+      $('#pantalla-inicio').hide();
+      $('#tablero').show();
+    },
+    randomRange: function (min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
 };
