@@ -49,6 +49,18 @@ var gato = {
 		$ficha.attr('data-activa', '1');
 		$ficha.attr('data-valor-ficha', val);
 		gato.fichasActivas++;
+		if (gato.fichasActivas == 9) {
+			gato.fin();
+		}
 		console.log('Número de fichas: ' + gato.fichasActivas);
+	}
+	,fin: function() {
+		$('#gato').append(
+			'<div class="resultado">' +
+			'<h1>Has ganado</h1>' +
+			'<a class="event received btn-inicio" href="#">' +
+			'Iniciar Juego</a>' +
+			'<div>'
+		);
 	}
 };

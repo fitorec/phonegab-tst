@@ -27,6 +27,10 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         $('#btn-iniciar-juego').click(this.iniciarJuego);
+        $( document ).on( "click", "a.btn-inicio", function() {
+						$('#tablero').hide();
+						$('#pantalla-inicio').show();
+				});
     },
     // Al iniciar el juego ocultamos el div de inicio y mostramos el div del tablero
     iniciarJuego: function() {
