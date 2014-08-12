@@ -1,8 +1,13 @@
 var gato = {
+	/* Variable para el control de fichas activas(sin tirar) */
 	fichasActivas: 0,
+	fichaPersonaValor: null,
+	fichaMaquinaValor: null,
 	inicio: function() {
-		fichasActivas = 0;
+		gato.fichasActivas = 0;
 		$('#tablero .ficha').click(function() {
+			gato.fichaPersonaValor = 'x';
+			gato.fichaMaquinaValor = 'o';
 			gato.tiroPersona($(this));
 		});
 	},
@@ -20,9 +25,10 @@ var gato = {
 		if ((gato.fichasActivas > 8) ||  fichaActiva == 1) {
 			return;
 		}
-		gato.marcarFicha($el, 'x');
+		gato.marcarFicha($el, gato.fichaPersonaValor);
 		gato.tirarMaquina();
 	},
+
 	/**
 	 * Función encargada de realizar un tiro en el tablero
 	 **/
@@ -30,17 +36,54 @@ var gato = {
 		if (gato.fichasActivas > 8) {
 			return;
 		}
-		//gato.maquinaPuedoGanar();
-		//gato.maquinaTiroDefensa();
-		gato.maquinaTiroAleatorio();
+		if(gato.maquinaTiroGanador()) {
+			return;//
+		}
+		if(gato.maquinaTiroDefensa()) {
+			return;//
+		}
+		gato.maquinaForzarTiro();
 	},
-	maquinaTiroAleatorio: function() {
+	/*
+	 * Busca una posibilidad de gane en el tablero:
+	 *  - Si la encuentra   : tira y devuelve true
+	 *  - Si no la encuentra: solo devuelve false
+	 */
+	maquinaTiroGanador: function() {
+		//Logica puedo ganar?
+		// if(puedoGanar_en_ficha($ficha)) {
+		//     gato.marcarFicha($ficha, gato.fichaMaquinaValor);
+		//     return true;
+		// }
+		return false;
+	},
+	/*
+	 * Busca una amenaza evidente de pierde en el tablero:
+	 *  - Si la encuentra   : tira y devuelve true
+	 *  - Si no la encuentra: solo devuelve false
+	 */
+	maquinaTiroDefensa: function() {
+		//Logica puedo impedir el gane?
+		// if (puedoImpedirElGaneTirandoEnFicha($ficha)) {
+		//      gato.marcarFicha($ficha, gato.fichaMaquinaValor);
+		//      return true;
+		// }
+		return false;
+	},
+	/*
+	 * Aqui deberia de venir la logica de nuestra siguiente jugada,
+	 * debemos de analizar el estado del tablero y realizar el tiro que
+	 * mejor nos convenga.
+	 *
+	 * Nota: De momento solo realizar un tiro aleatorio
+	 */
+	maquinaForzarTiro: function() {
 		while(1) {
 			var f = app.randomRange(0, 2);
 			var c = app.randomRange(0, 2);
 			var $ficha = gato.ficha(f, c);
 			if (parseInt($ficha.attr('data-activa')) == 0) {
-				gato.marcarFicha($ficha, 'o');
+				gato.marcarFicha($ficha, gato.fichaMaquinaValor);
 				break;
 			}
 		}
@@ -53,8 +96,11 @@ var gato = {
 			gato.fin();
 		}
 		console.log('Número de fichas: ' + gato.fichasActivas);
+	},
+	quienGano: function(){
 	}
-	,fin: function() {
+	fin: function() {
+		var msgGanador = quienGano();
 		$('#gato').append(
 			'<div class="resultado">' +
 			'<h1>Has ganado</h1>' +
