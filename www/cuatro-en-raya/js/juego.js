@@ -1,48 +1,48 @@
-var gato = {
+var cuatroEnRaya = {
 	/* Variable para el control de fichas activas(sin tirar) */
 	fichasActivas: 0,
 	fichaPersonaValor: null,
 	fichaMaquinaValor: null,
 	inicio: function() {
-		gato.fichasActivas = 0;
+		cuatroEnRaya.fichasActivas = 0;
 		$('#tablero .ficha').click(function() {
-			gato.fichaPersonaValor = 'x';
-			gato.fichaMaquinaValor = 'o';
-			gato.tiroPersona($(this));
+			cuatroEnRaya.fichaPersonaValor = 'x';
+			cuatroEnRaya.fichaMaquinaValor = 'o';
+			cuatroEnRaya.tiroPersona($(this));
 		});
 	},
 	/**
 	 * Obtiene y devuelve una ficha a partir de sus indices fila y columna
 	 **/
 	ficha: function(fila, columna) {
-		return $('#gato .fila-' + fila + '.columna-' + columna);
+		return $('#cuatro-en-raya .fila-' + fila + '.columna-' + columna);
 	},
 	/**
 	 * Función encargada de manejar el evento cuando tira una persona
 	 **/
 	tiroPersona: function($el) {
 		var fichaActiva = parseInt($el.attr('data-activa'));
-		if ((gato.fichasActivas > 8) ||  fichaActiva == 1) {
+		if ((cuatroEnRaya.fichasActivas > 41) ||  fichaActiva == 1) {
 			return;
 		}
-		gato.marcarFicha($el, gato.fichaPersonaValor);
-		gato.tirarMaquina();
+		cuatroEnRaya.marcarFicha($el, cuatroEnRaya.fichaPersonaValor);
+		cuatroEnRaya.tirarMaquina();
 	},
 
 	/**
 	 * Función encargada de realizar un tiro en el tablero
 	 **/
 	tirarMaquina: function() {
-		if (gato.fichasActivas > 8) {
+		if (cuatroEnRaya.fichasActivas > 41) {
 			return;
 		}
-		if(gato.maquinaTiroGanador()) {
+		if(cuatroEnRaya.maquinaTiroGanador()) {
 			return;//
 		}
-		if(gato.maquinaTiroDefensa()) {
+		if(cuatroEnRaya.maquinaTiroDefensa()) {
 			return;//
 		}
-		gato.maquinaForzarTiro();
+		cuatroEnRaya.maquinaForzarTiro();
 	},
 	/*
 	 * Busca una posibilidad de gane en el tablero:
@@ -52,7 +52,7 @@ var gato = {
 	maquinaTiroGanador: function() {
 		//Logica puedo ganar?
 		// if(puedoGanar_en_ficha($ficha)) {
-		//     gato.marcarFicha($ficha, gato.fichaMaquinaValor);
+		//     cuatroEnRaya.marcarFicha($ficha, cuatroEnRaya.fichaMaquinaValor);
 		//     return true;
 		// }
 		return false;
@@ -65,7 +65,7 @@ var gato = {
 	maquinaTiroDefensa: function() {
 		//Logica puedo impedir el gane?
 		// if (puedoImpedirElGaneTirandoEnFicha($ficha)) {
-		//      gato.marcarFicha($ficha, gato.fichaMaquinaValor);
+		//      cuatroEnRaya.marcarFicha($ficha, cuatroEnRaya.fichaMaquinaValor);
 		//      return true;
 		// }
 		return false;
@@ -79,11 +79,11 @@ var gato = {
 	 */
 	maquinaForzarTiro: function() {
 		while(1) {
-			var f = app.randomRange(0, 2);
-			var c = app.randomRange(0, 2);
-			var $ficha = gato.ficha(f, c);
+			var f = app.randomRange(0, 6);
+			var c = app.randomRange(0, 7);
+			var $ficha = cuatroEnRaya.ficha(f, c);
 			if (parseInt($ficha.attr('data-activa')) == 0) {
-				gato.marcarFicha($ficha, gato.fichaMaquinaValor);
+				cuatroEnRaya.marcarFicha($ficha, cuatroEnRaya.fichaMaquinaValor);
 				break;
 			}
 		}
@@ -91,17 +91,17 @@ var gato = {
 	marcarFicha: function($ficha, val) {
 		$ficha.attr('data-activa', '1');
 		$ficha.attr('data-valor-ficha', val);
-		gato.fichasActivas++;
-		if (gato.fichasActivas == 9) {
-			gato.fin();
+		cuatroEnRaya.fichasActivas++;
+		if (cuatroEnRaya.fichasActivas == 42) {
+			cuatroEnRaya.fin();
 		}
-		console.log('Número de fichas: ' + gato.fichasActivas);
+		console.log('Número de fichas: ' + cuatroEnRaya.fichasActivas);
 	},
-	quienGano: function() {
+	quienGano: function(){
 		return "Has ganado";
 	},
 	fin: function() {
-		var msgGanador = gato.quienGano();
-		app.finJuego($('#gato'), msgGanador);
+		var msgGanador = cuatroEnRaya.quienGano();
+		app.finJuego($('#cuatro-en-raya'), msgGanador);
 	}
 };

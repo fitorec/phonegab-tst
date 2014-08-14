@@ -1,0 +1,21 @@
+#cuatro-en-raya {
+	width: 100%;
+	height: 100%;
+	background: #DF7B0D;
+}
+
+#cuatro-en-raya div.ficha {
+	width: 14%;
+	height: 16.2%;
+	margin: 0.13% 0.142%;
+	border-radius: 5px;
+	float: left;
+}
+
+#cuatro-en-raya div.ficha[data-valor-ficha='x'] {
+	background: #FF0061;
+}
+
+#cuatro-en-raya div.ficha[data-valor-ficha='o'] {
+	background: #00FF4F;
+}

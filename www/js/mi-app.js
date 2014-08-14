@@ -54,5 +54,16 @@ var app = {
     },
     randomRange: function (min, max) {
 			return Math.floor(Math.random() * (max - min + 1)) + min;
+		},
+		finJuego: function($el, mensaje) {
+			$el.append(
+				'<div class="resultado">' +
+				'<h1>' + mensaje + '</h1>' +
+				'<a class="event received btn-inicio" href="#">' +
+				'Ir al incio</a>' +
+				'<a class="event received btn-jugar" href="#">' +
+				'Jugar de nuevo</a>' +
+				'<div>'
+			);
 		}
 };

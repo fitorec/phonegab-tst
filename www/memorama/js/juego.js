@@ -1,48 +1,48 @@
-var gato = {
+var memorama = {
 	/* Variable para el control de fichas activas(sin tirar) */
 	fichasActivas: 0,
 	fichaPersonaValor: null,
 	fichaMaquinaValor: null,
 	inicio: function() {
-		gato.fichasActivas = 0;
+		memorama.fichasActivas = 0;
 		$('#tablero .ficha').click(function() {
-			gato.fichaPersonaValor = 'x';
-			gato.fichaMaquinaValor = 'o';
-			gato.tiroPersona($(this));
+			memorama.fichaPersonaValor = 'x';
+			memorama.fichaMaquinaValor = 'o';
+			memorama.tiroPersona($(this));
 		});
 	},
 	/**
 	 * Obtiene y devuelve una ficha a partir de sus indices fila y columna
 	 **/
 	ficha: function(fila, columna) {
-		return $('#gato .fila-' + fila + '.columna-' + columna);
+		return $('#memorama .fila-' + fila + '.columna-' + columna);
 	},
 	/**
 	 * Función encargada de manejar el evento cuando tira una persona
 	 **/
 	tiroPersona: function($el) {
 		var fichaActiva = parseInt($el.attr('data-activa'));
-		if ((gato.fichasActivas > 8) ||  fichaActiva == 1) {
+		if ((memorama.fichasActivas > 15) ||  fichaActiva == 1) {
 			return;
 		}
-		gato.marcarFicha($el, gato.fichaPersonaValor);
-		gato.tirarMaquina();
+		memorama.marcarFicha($el, memorama.fichaPersonaValor);
+		memorama.tirarMaquina();
 	},
 
 	/**
 	 * Función encargada de realizar un tiro en el tablero
 	 **/
 	tirarMaquina: function() {
-		if (gato.fichasActivas > 8) {
+		if (memorama.fichasActivas > 15) {
 			return;
 		}
-		if(gato.maquinaTiroGanador()) {
+		if(memorama.maquinaTiroGanador()) {
 			return;//
 		}
-		if(gato.maquinaTiroDefensa()) {
+		if(memorama.maquinaTiroDefensa()) {
 			return;//
 		}
-		gato.maquinaForzarTiro();
+		memorama.maquinaForzarTiro();
 	},
 	/*
 	 * Busca una posibilidad de gane en el tablero:
@@ -52,7 +52,7 @@ var gato = {
 	maquinaTiroGanador: function() {
 		//Logica puedo ganar?
 		// if(puedoGanar_en_ficha($ficha)) {
-		//     gato.marcarFicha($ficha, gato.fichaMaquinaValor);
+		//     memorama.marcarFicha($ficha, memorama.fichaMaquinaValor);
 		//     return true;
 		// }
 		return false;
@@ -65,7 +65,7 @@ var gato = {
 	maquinaTiroDefensa: function() {
 		//Logica puedo impedir el gane?
 		// if (puedoImpedirElGaneTirandoEnFicha($ficha)) {
-		//      gato.marcarFicha($ficha, gato.fichaMaquinaValor);
+		//      memorama.marcarFicha($ficha, memorama.fichaMaquinaValor);
 		//      return true;
 		// }
 		return false;
@@ -79,11 +79,11 @@ var gato = {
 	 */
 	maquinaForzarTiro: function() {
 		while(1) {
-			var f = app.randomRange(0, 2);
-			var c = app.randomRange(0, 2);
-			var $ficha = gato.ficha(f, c);
+			var f = app.randomRange(0, 3);
+			var c = app.randomRange(0, 3);
+			var $ficha = memorama.ficha(f, c);
 			if (parseInt($ficha.attr('data-activa')) == 0) {
-				gato.marcarFicha($ficha, gato.fichaMaquinaValor);
+				memorama.marcarFicha($ficha, memorama.fichaMaquinaValor);
 				break;
 			}
 		}
@@ -91,17 +91,17 @@ var gato = {
 	marcarFicha: function($ficha, val) {
 		$ficha.attr('data-activa', '1');
 		$ficha.attr('data-valor-ficha', val);
-		gato.fichasActivas++;
-		if (gato.fichasActivas == 9) {
-			gato.fin();
+		memorama.fichasActivas++;
+		if (memorama.fichasActivas == 16) {
+			memorama.fin();
 		}
-		console.log('Número de fichas: ' + gato.fichasActivas);
+		console.log('Número de fichas: ' + memorama.fichasActivas);
 	},
-	quienGano: function() {
+	quienGano: function(){
 		return "Has ganado";
 	},
 	fin: function() {
-		var msgGanador = gato.quienGano();
-		app.finJuego($('#gato'), msgGanador);
+		var msgGanador = memorama.quienGano();
+		app.finJuego($('#memorama'), msgGanador);
 	}
 };
