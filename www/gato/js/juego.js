@@ -98,12 +98,13 @@ var gato = {
 		console.log('Número de fichas: ' + gato.fichasActivas);
 	},
 	quienGano: function(){
+		return "Has ganado";
 	},
 	fin: function() {
-		var msgGanador = quienGano();
+		var msgGanador = gato.quienGano();
 		$('#gato').append(
 			'<div class="resultado">' +
-			'<h1>Has ganado</h1>' +
+			'<h1>'+msgGanador+'</h1>' +
 			'<a class="event received btn-inicio" href="#">' +
 			'Iniciar Juego</a>' +
 			'<div>'

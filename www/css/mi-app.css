@@ -61,6 +61,11 @@ body {
     margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
 }
+div#pantalla-inicio.app h1,
+div#tablero.app div.resultado h1 {
+	color: #222;
+	text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.5), -1px -1px 5px rgba(255, 255, 255, 0.5);
+}
 #tablero {
 	background: black;
 	position:absolute;
@@ -102,9 +107,9 @@ h1 {
     border-radius:4px;
     -webkit-border-radius:4px;
     color:#FFFFFF;
-    font-size:12px;
+    font-size: 20px;
     margin:0px 30px;
-    padding:2px 0px;
+    padding: 5px 5px;
 }
 
 .event.received {
